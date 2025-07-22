@@ -14,7 +14,7 @@ const LLMConversionAgent = ({ fileContent, isValid, onConversionComplete }) => {
 
 ${fileContent}`;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.REACT_APP_GEMINI_API_KEY}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.REACT_APP_GEMINI_API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ ${fileContent}`;
             disabled={isConverting}
             className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isConverting ? ' Converting with Gemini...' : ' Start Conversion'}
+            {isConverting ? ' Convertion in progress...' : ' Convert'}
           </button>
           {isConverting && (
             <p className="text-purple-700 mt-2"> AI agent is converting Jenkins to Azure DevOps...</p>

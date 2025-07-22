@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bot } from 'lucide-react';
+
 
 const FileValidationAgent = ({ file, onValidationComplete }) => {
   const [isValidating, setIsValidating] = useState(false);
@@ -58,13 +58,13 @@ const FileValidationAgent = ({ file, onValidationComplete }) => {
   return (
     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
       <div className="flex items-center mb-2">
-        <Bot className="h-5 w-5 text-yellow-600 mr-2" />
+        {/* <Bot className="h-5 w-5 text-yellow-600 mr-2" /> */}
         <span className="font-medium text-yellow-800">File Validation Agent</span>
       </div>
       {isValidating ? (
-        <p className="text-yellow-700">🔍 Analyzing Jenkins file structure...</p>
+        <p className="text-yellow-700">Analyzing Jenkins file structure...</p>
       ) : (
-        <p className="text-yellow-700">✅ Validation complete</p>
+        <p className="text-yellow-700"> Validation complete</p>
       )}
     </div>
   );

@@ -39,7 +39,7 @@ const ApprovalAgent = ({ convertedYaml, onApprove }) => {
           Approve & Download
         </button>
         {isApproved && (
-          <p className="text-green-600 font-medium mt-2">✅ Pipeline approved and downloaded successfully!</p>
+          <p className="text-green-600 font-medium mt-2"> Pipeline approved and downloaded successfully!</p>
         )}
       </div>
     </div>
