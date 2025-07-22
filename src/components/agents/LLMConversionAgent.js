@@ -46,10 +46,7 @@ ${fileContent}`;
 
   return (
     <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
-      <div className="flex items-center mb-2">
-        <Bot className="h-5 w-5 text-purple-600 mr-2" />
-        <span className="font-medium text-purple-800">LLM Conversion Agent</span>
-      </div>
+      
       {isValid ? (
         <div>
           <button
@@ -57,14 +54,14 @@ ${fileContent}`;
             disabled={isConverting}
             className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
-            {isConverting ? '🤖 Converting with Gemini...' : '🔄 Start Conversion'}
+            {isConverting ? ' Converting with Gemini...' : ' Start Conversion'}
           </button>
           {isConverting && (
-            <p className="text-purple-700 mt-2">⚡ AI agent is converting Jenkins to Azure DevOps...</p>
+            <p className="text-purple-700 mt-2"> AI agent is converting Jenkins to Azure DevOps...</p>
           )}
         </div>
       ) : (
-        <p className="text-purple-700">⏳ Waiting for valid file...</p>
+        <p className="text-purple-700"> Waiting for valid file...</p>
       )}
     </div>
   );

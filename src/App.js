@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Upload, FileText, CheckCircle, AlertCircle } from 'lucide-react';
-import FileValidationAgent from './components/agents/FileValidationAgent.js';
+import FileValidationAgent from './components/agents/FileValidationAgent';
 import LLMConversionAgent from './components/agents/LLMConversionAgent';
 import ApprovalAgent from './components/agents/ApprovalAgent';
 import './App.css';
@@ -47,13 +47,13 @@ function App() {
   return (
     <div className="max-w-4xl mx-auto p-6 bg-white min-h-screen">
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg mb-8">
-        <h1 className="text-3xl font-bold mb-2">Jenkins to Azure DevOps Converter</h1>
+        <h1 className="text-3xl font-bold mb-2">Jenkins to Azure DevOps automation</h1>
         <p className="text-blue-100">AI Agents Pipeline: File → Validation → LLM Conversion → Approval</p>
       </div>
 
       {/* File Upload Section */}
       <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-8 mb-6 text-center hover:border-blue-400 transition-colors">
-        <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+       
         <div className="mb-4">
           <label htmlFor="file-upload" className="cursor-pointer">
             <span className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors inline-block">
@@ -81,7 +81,6 @@ function App() {
 
       {/* AI Agents Pipeline */}
       <div className="space-y-4 mb-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">🤖 AI Agents Pipeline</h3>
         
         {/* File Validation Agent */}
         <FileValidationAgent 
@@ -127,7 +126,7 @@ function App() {
           </div>
         )}
 
-        {/* LLM Conversion Agent */}
+       
         <LLMConversionAgent 
           fileContent={file?.content}
           isValid={validationResult?.isValid}
@@ -154,16 +153,8 @@ function App() {
         </div>
       )}
 
-      {/* Instructions */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-8">
-        <h4 className="font-semibold text-blue-800 mb-2">🔄 Agent Pipeline Flow:</h4>
-        <ol className="list-decimal list-inside text-blue-700 text-sm space-y-1">
-          <li><strong>File Upload:</strong> Select Jenkins pipeline file</li>
-          <li><strong>Validation Agent:</strong> Analyzes and validates Jenkins syntax</li>
-          <li><strong>LLM Conversion Agent:</strong> Converts to Azure DevOps YAML using Gemini</li>
-          <li><strong>Approval Agent:</strong> Reviews and downloads final pipeline</li>
-        </ol>
-      </div>
+    
+      
     </div>
   );
 }
