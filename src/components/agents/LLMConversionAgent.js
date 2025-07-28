@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Bot } from 'lucide-react';
 
 const LLMConversionAgent = ({ fileContent, isValid, onConversionComplete }) => {
   const [isConverting, setIsConverting] = useState(false);
@@ -29,40 +28,70 @@ ${fileContent}`;
       });
 
       if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
+        throw new Error(`API Error: ${response.status} - ${response.statusText}`);
       }
 
       const data = await response.json();
-      const convertedContent = data.candidates[0]?.content?.parts[0]?.text || 'No conversion result';
+      
+      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+        throw new Error('Invalid response format from conversion service');
+      }
+
+      const convertedContent = data.candidates[0]?.content?.parts[0]?.text || 'No conversion result available';
       onConversionComplete(convertedContent);
       
     } catch (error) {
       console.error('Gemini API Error:', error);
-      onConversionComplete(`Error calling Gemini API: ${error.message}\n\nPlease check your API key and try again.`);
+      const errorMessage = `Conversion Error: ${error.message}\n\nPlease verify your API configuration and network connection.`;
+      onConversionComplete(errorMessage);
     } finally {
       setIsConverting(false);
     }
   };
 
   return (
-    <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
-      
-      {isValid ? (
-        <div>
-          <button
-            onClick={callGeminiAPI}
-            disabled={isConverting}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {isConverting ? ' Convertion in progress...' : ' Convert'}
-          </button>
-          {isConverting && (
-            <p className="text-purple-700 mt-2"> AI agent is converting Jenkins to Azure DevOps...</p>
-          )}
+    <div className="flex items-center justify-between py-2">
+      <div className="flex items-center space-x-3">
+        <div 
+          className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold"
+          style={{ backgroundColor: '#124E66' }}
+        >
+          Y
         </div>
-      ) : (
-        <p className="text-purple-700"> Waiting for valid file...</p>
-      )}
+        <span className="font-medium" style={{ color: '#D3D9D4' }}>
+          YAML Generation Agent
+        </span>
+      </div>
+      
+      <div className="flex items-center space-x-3">
+        {isConverting && (
+          <span className="text-sm" style={{ color: '#748D92' }}>
+            Converting pipeline...
+          </span>
+        )}
+        
+        <button
+          onClick={callGeminiAPI}
+          disabled={!fileContent || !isValid || isConverting}
+          className="px-4 py-1 rounded text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{
+            backgroundColor: (!fileContent || !isValid || isConverting) ? '#748D92' : '#124E66',
+            color: 'white'
+          }}
+          onMouseEnter={(e) => {
+            if (fileContent && isValid && !isConverting) {
+              e.target.style.backgroundColor = '#2E3944';
+            }
+          }}
+          onMouseLeave={(e) => {
+            if (fileContent && isValid && !isConverting) {
+              e.target.style.backgroundColor = '#124E66';
+            }
+          }}
+        >
+          {isConverting ? 'Converting...' : 'Generate YAML'}
+        </button>
+      </div>
     </div>
   );
 };
